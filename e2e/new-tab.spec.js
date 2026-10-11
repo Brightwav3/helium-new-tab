@@ -336,11 +336,11 @@ test("a saved language is on the page from its first paint", async ({ page }) =>
     window.paintedText = [];
 
     function record() {
-      const hint = document.querySelector(".keyboard-hint [data-i18n]");
+      const settings = document.getElementById("open-settings");
       const search = document.getElementById("search");
 
-      if (hint && search) {
-        window.paintedText.push(`${hint.textContent} | ${search.placeholder}`);
+      if (settings && search) {
+        window.paintedText.push(`${settings.getAttribute("aria-label")} | ${search.placeholder}`);
       }
 
       if (window.paintedText.length < 5) {
@@ -357,7 +357,7 @@ test("a saved language is on the page from its first paint", async ({ page }) =>
 
   const frames = await page.evaluate(() => window.paintedText);
 
-  expect(new Set(frames)).toEqual(new Set(["zum Suchen | Suchen oder URL eingeben"]));
+  expect(new Set(frames)).toEqual(new Set(["Anpassen | Suchen oder URL eingeben"]));
   await expect(page.locator("html")).toHaveAttribute("lang", "de");
 });
 

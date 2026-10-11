@@ -187,3 +187,51 @@ test("declining top sites permission leaves the manual list selected", async ({ 
   await expect(page.getByLabel("Shortcuts", { exact: true })).toHaveValue("manual");
   expect(await page.evaluate(() => window.topSitesReads)).toBe(0);
 });
+
+test("centers the content with and without clock, date and shortcuts", async ({ page }) => {
+  await page.setViewportSize({ width: 970, height: 834 });
+  await page.goto("/");
+
+  for (const showClock of [false, true]) {
+    for (const showPinnedSites of [false, true]) {
+      await page.evaluate(
+        ({ showClock, showPinnedSites }) => {
+          localStorage.setItem(
+            "helium-tab",
+            JSON.stringify({ showClock, showDate: showClock, showPinnedSites }),
+          );
+          localStorage.setItem(
+            "helium-tab-sites",
+            JSON.stringify({ sites: [{ title: "Example", url: "https://example.com/" }] }),
+          );
+        },
+        { showClock, showPinnedSites },
+      );
+      await page.reload();
+      if (showClock) {
+        await expect(page.locator("#clock-block")).toHaveAttribute("data-ready", "true");
+      } else {
+        await expect(page.locator("#clock-block")).toBeHidden();
+      }
+
+      await page.evaluate(() => document.fonts.ready);
+      const content = await page.locator(".start").boundingBox();
+
+      expect(Math.abs(content.y + content.height / 2 - 417)).toBeLessThan(2);
+      expect(Math.abs(content.x + content.width / 2 - 485)).toBeLessThan(2);
+    }
+  }
+});
+
+test("footer shows only the accessible settings icon", async ({ page }) => {
+  await page.goto("/");
+
+  await expect(page.locator("footer")).toHaveText("");
+  await expect(page.locator("footer button svg")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Customize", exact: true })).toHaveCSS(
+    "background-color",
+    "rgba(0, 0, 0, 0)",
+  );
+  await openSettings(page);
+  await expect(page.getByRole("dialog")).toBeVisible();
+});
