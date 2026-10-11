@@ -80,5 +80,7 @@
   "frequentSites": "Most visited",
   "frequentSitesHelp": "Most visited uses your browser's top sites, with your permission. Your own list is kept.",
   "frequentSitesPreview": "Most visited is available when installed as an extension.",
-  "frequentSitesUnavailable": "Most visited is unavailable. Your own shortcuts are shown instead."
+  "frequentSitesUnavailable": "Most visited is unavailable. Your own shortcuts are shown instead.",
+  "centerSearchPlaceholder": "Center search placeholder",
+  "centerSearchPlaceholderHelp": "Only the empty field. Typed queries always align left."
 }

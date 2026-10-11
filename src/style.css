@@ -16,9 +16,13 @@
   --accent: #3450d1;
   --surface: #fbfcff;
   --panel: #f4f7ff;
-  --search-bg: #e5eafb;
-  --search-focus-bg: #fbfcff;
-  --search-focus-ring: #3450d1;
+  --search-bg: #4953610d;
+  --search-text: #292d35;
+  --search-secondary: #555b66;
+  --search-border: #49536126;
+  --search-hover: #dadde3;
+  --search-focus-bg: #49536117;
+  --search-focus-ring: #7b89b1;
   --toggle-thumb: #fbfcff;
   /* Off switches keep at least 3:1 contrast against the panel and the tinted rows. */
   --toggle-off: #737f9e;
@@ -44,9 +48,13 @@
     --accent: #b3beec;
     --surface: #222a50;
     --panel: #151932;
-    --search-bg: #222a50;
-    --search-focus-bg: #29345e;
-    --search-focus-ring: #8b9fff;
+    --search-bg: #cdd1d21a;
+    --search-text: #e4e6e8;
+    --search-secondary: #bdc1c6;
+    --search-border: #cdd1d226;
+    --search-hover: #424547;
+    --search-focus-bg: #cdd1d226;
+    --search-focus-ring: #8795b7;
     --toggle-thumb: #151932;
     --toggle-off: #8390be;
     --tint: #232c51;
@@ -67,9 +75,13 @@
   --accent: #b3beec;
   --surface: #222a50;
   --panel: #151932;
-  --search-bg: #222a50;
-  --search-focus-bg: #29345e;
-  --search-focus-ring: #8b9fff;
+  --search-bg: #cdd1d21a;
+  --search-text: #e4e6e8;
+  --search-secondary: #bdc1c6;
+  --search-border: #cdd1d226;
+  --search-hover: #424547;
+  --search-focus-bg: #cdd1d226;
+  --search-focus-ring: #8795b7;
   --toggle-thumb: #151932;
   --toggle-off: #8390be;
   --tint: #232c51;
@@ -212,17 +224,16 @@ h1 {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 6px 7px 6px 20px;
-  border: 1px solid var(--border);
-  border-radius: 32px;
-  box-shadow: 0 6px 32px #0d1c6408;
+  padding: 5px 8px 5px 14px;
+  border: 1px solid var(--search-border);
+  border-radius: 10px;
   background: var(--search-bg);
-  height: 64px;
+  height: 48px;
 }
 
 #search-form:focus-within {
   border-color: var(--search-focus-ring);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--search-focus-ring) 18%, transparent);
+  box-shadow: 0 0 0 1px var(--search-focus-ring);
   background: var(--search-focus-bg);
 }
 
@@ -231,7 +242,7 @@ h1 {
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  color: var(--secondary);
+  color: var(--search-secondary);
   width: 20px;
   height: 20px;
 }
@@ -320,7 +331,8 @@ h1 {
 #search {
   width: 100%;
   min-width: 0;
-  color: var(--text);
+  color: var(--search-text);
+  text-align: start;
   background: transparent;
   border: 0;
   outline: none;
@@ -332,38 +344,50 @@ h1 {
 }
 
 #search::placeholder {
-  color: var(--secondary);
+  color: var(--search-secondary);
+}
+
+/* Balance the two trailing controls while the field is empty. Typed text aligns normally. */
+:root[data-center-search-placeholder="true"] #search:placeholder-shown {
+  text-align: center;
+  padding-inline-start: 54px;
+}
+
+#search-form:has(.search-service:not([hidden])) #search:placeholder-shown {
+  text-align: start;
+  padding-inline-start: 10px;
 }
 
 .search-submit {
-  background: #3450d1;
-  color: #f4f7ff;
-  border-radius: 50%;
-  height: 46px;
-  width: 46px;
+  background: transparent;
+  color: var(--search-secondary);
+  border-radius: 6px;
+  height: 32px;
+  width: 32px;
   display: grid;
   place-items: center;
   flex-shrink: 0;
 }
 
 .search-submit:hover {
-  background: #3a58db;
+  background: var(--search-hover);
+  color: var(--search-text);
 }
 
 .image-search-button {
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  width: 40px;
-  height: 44px;
-  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
   background: transparent;
-  color: var(--secondary);
+  color: var(--search-secondary);
 }
 
 .image-search-button:hover {
-  background: var(--tint);
-  color: var(--text);
+  background: var(--search-hover);
+  color: var(--search-text);
 }
 
 .image-search-hint {
@@ -1294,12 +1318,12 @@ body {
   #search-form {
     gap: 6px;
     padding-inline-start: 14px;
-    height: 58px;
+    height: 44px;
   }
 
-  .search-submit {
-    width: 42px;
-    height: 42px;
+  :root[data-center-search-placeholder="true"] #search:placeholder-shown {
+    padding-inline-start: 50px;
+    font-size: 14px;
   }
 
   .image-search-button {

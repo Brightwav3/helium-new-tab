@@ -80,5 +80,7 @@
   "frequentSites": "Najnavštevovanejšie",
   "frequentSitesHelp": "Najnavštevovanejšie stránky získavame z prehliadača s vaším povolením. Vlastný zoznam zostane uložený.",
   "frequentSitesPreview": "Najnavštevovanejšie stránky sú dostupné po inštalácii rozšírenia.",
-  "frequentSitesUnavailable": "Najnavštevovanejšie stránky nie sú dostupné. Zobrazujeme vaše vlastné skratky."
+  "frequentSitesUnavailable": "Najnavštevovanejšie stránky nie sú dostupné. Zobrazujeme vaše vlastné skratky.",
+  "centerSearchPlaceholder": "Vycentrovať text hľadania",
+  "centerSearchPlaceholderHelp": "Iba v prázdnom poli. Napísaný dotaz sa vždy zarovnáva vľavo."
 }

@@ -235,3 +235,24 @@ test("footer shows only the accessible settings icon", async ({ page }) => {
   await openSettings(page);
   await expect(page.getByRole("dialog")).toBeVisible();
 });
+
+test("search placeholder centering switches immediately and persists", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("#search")).toHaveCSS("text-align", "center");
+  await openSettings(page);
+  await page.getByRole("switch", { name: "Center search placeholder" }).uncheck();
+  await page.keyboard.press("Escape");
+
+  await expect(page.locator("#search")).not.toHaveCSS("text-align", "center");
+  await page.reload();
+  await expect(page.locator("#search")).not.toHaveCSS("text-align", "center");
+  await openSettings(page);
+  await expect(page.getByRole("switch", { name: "Center search placeholder" })).not.toBeChecked();
+  await page.getByRole("switch", { name: "Center search placeholder" }).check();
+  await page.keyboard.press("Escape");
+  await expect(page.locator("#search")).toHaveCSS("text-align", "center");
+  await page.locator("#search").fill("test query");
+  await expect(page.locator("#search")).not.toHaveCSS("text-align", "center");
+  await page.reload();
+  await expect(page.locator("#search")).toHaveCSS("text-align", "center");
+});

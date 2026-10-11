@@ -70,6 +70,7 @@ export function createSettings({
     ["show-seconds", "showSeconds"],
     ["show-date", "showDate"],
     ["type-to-search", "typeToSearch"],
+    ["center-search-placeholder", "centerSearchPlaceholder"],
     ["show-pinned-sites", "showPinnedSites"],
     ["shortcut-source", "shortcutSource"],
     ["show-service-icons", "showServiceIcons"],

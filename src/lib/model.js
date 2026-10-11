@@ -20,6 +20,7 @@ export const defaults = {
   showDate: true,
   showServiceIcons: false,
   typeToSearch: true,
+  centerSearchPlaceholder: true,
   showPinnedSites: false,
   shortcutSource: "manual",
   uiFont: "instrument",
@@ -87,6 +88,7 @@ export function readPreferences(value) {
     "showDate",
     "showServiceIcons",
     "typeToSearch",
+    "centerSearchPlaceholder",
     "showPinnedSites",
   ]) {
     if (typeof value[key] === "boolean") {

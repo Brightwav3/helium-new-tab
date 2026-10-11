@@ -36,6 +36,7 @@ export function applyAppearance(preferences) {
     root.style.setProperty(`--${key}-font`, family);
   }
 
+  root.dataset.centerSearchPlaceholder = String(preferences.centerSearchPlaceholder);
   root.dataset.background = preferences.background;
   root.dataset.showClock = String(preferences.showClock);
   root.dataset.showDate = String(preferences.showDate);
