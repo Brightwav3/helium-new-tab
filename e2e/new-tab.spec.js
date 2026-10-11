@@ -102,11 +102,11 @@ test("loads without errors or remote requests", async ({ page }) => {
 });
 
 for (const [name, colorScheme, preferences, background] of [
-  ["light device", "light", {}, "rgb(244, 247, 255)"],
-  ["dark device", "dark", {}, "rgb(21, 25, 50)"],
-  ["forced dark", "light", { theme: "dark" }, "rgb(21, 25, 50)"],
-  ["forced light", "dark", { theme: "light" }, "rgb(244, 247, 255)"],
-  ["Helium dark", "dark", { background: "helium" }, "rgb(14, 17, 35)"],
+  ["light device", "light", {}, "rgb(255, 255, 255)"],
+  ["dark device", "dark", {}, "rgb(30, 32, 32)"],
+  ["forced dark", "light", { theme: "dark" }, "rgb(30, 32, 32)"],
+  ["forced light", "dark", { theme: "light" }, "rgb(255, 255, 255)"],
+  ["Helium dark", "dark", { background: "helium" }, "rgb(59, 60, 60)"],
 ]) {
   test(`paints the ${name} background`, async ({ page }) => {
     await page.emulateMedia({ colorScheme });

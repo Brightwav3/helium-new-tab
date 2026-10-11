@@ -7,9 +7,7 @@
 }
 
 :root {
-  --hero-glow: #acbbff;
-  --stripe: #3450d108;
-  --wallpaper-cover: #f4f7ffcf;
+  --wallpaper-cover: #ffffffcf;
   --text: #0d1c64;
   --secondary: #475a7f;
   --muted: #646f9a;
@@ -39,9 +37,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --hero-glow: #2d3c7f;
-    --stripe: #b3beec05;
-    --wallpaper-cover: #0e1123b8;
+    --wallpaper-cover: #1e2020b8;
     --text: #e3e6f2;
     --secondary: #b3beec;
     --muted: #a4afd7;
@@ -66,9 +62,7 @@
 }
 
 :root[data-theme="dark"] {
-  --hero-glow: #2d3c7f;
-  --stripe: #b3beec05;
-  --wallpaper-cover: #0e1123b8;
+  --wallpaper-cover: #1e2020b8;
   --text: #e3e6f2;
   --secondary: #b3beec;
   --muted: #a4afd7;
@@ -1201,34 +1195,20 @@ input[type="checkbox"]:checked:before {
   margin: 0;
 }
 
-/* The website's quiet blue columns, rendered locally without images or canvas work. */
-body::before {
+/* Only custom images add a background layer; the default canvas remains flat. */
+body {
+  isolation: isolate;
+}
+
+:root[data-custom-background="true"] body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
   background:
-    repeating-linear-gradient(
-      90deg,
-      transparent 0,
-      transparent calc(100vw / 7),
-      var(--stripe) calc(100vw / 7),
-      var(--stripe) calc(100vw / 7 * 2)
-    ),
-    radial-gradient(ellipse at 50% 15%, var(--hero-glow), transparent 75%);
-  opacity: 0.45;
-}
-
-body {
-  isolation: isolate;
-}
-
-:root[data-custom-background="true"] body::before {
-  background:
     linear-gradient(var(--wallpaper-cover), var(--wallpaper-cover)),
     var(--custom-background) center / cover no-repeat;
-  opacity: 1;
 }
 
 .image-drop-zone {

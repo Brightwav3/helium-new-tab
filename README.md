@@ -1,6 +1,6 @@
 # Helium New Tab
 
-A minimal, unofficial new-tab extension inspired by [Helium's brand kit](https://helium.computer/brand) and [Prism](https://prism.helium.computer/). The interface follows [Helium's website](https://helium.computer): blue column backgrounds, rounded search controls, and locally bundled Instrument Sans Variable. Plain HTML, CSS, and JavaScript, built with Bun. No runtime dependencies.
+A minimal, unofficial new-tab extension inspired by [Helium's brand kit](https://helium.computer/brand) and [Prism](https://prism.helium.computer/). The interface follows [Helium's website](https://helium.computer): locally bundled Instrument Sans Variable and compact translucent search controls. The default canvas keeps the original flat light and dark backgrounds. Plain HTML, CSS, and JavaScript, built with Bun. No runtime dependencies.
 
 ## Install in Helium
 
