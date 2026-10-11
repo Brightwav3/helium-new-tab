@@ -96,6 +96,9 @@ test("custom background survives reload, reaches another tab and resets", async 
   await expect(page.locator("html")).toHaveAttribute("data-custom-background", "true");
   await expect(other.locator("html")).toHaveAttribute("data-custom-background", "true");
   await expect(page.locator("#background-name")).toHaveText("test-image.png");
+  expect(
+    await page.evaluate(() => getComputedStyle(document.body, "::before").backgroundImage),
+  ).not.toContain("gradient");
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-custom-background", "true");
   await openSettings(page);

@@ -7,7 +7,6 @@
 }
 
 :root {
-  --wallpaper-cover: #ffffffcf;
   --text: #0d1c64;
   --secondary: #475a7f;
   --muted: #646f9a;
@@ -37,7 +36,6 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --wallpaper-cover: #1e2020b8;
     --text: #e3e6f2;
     --secondary: #b3beec;
     --muted: #a4afd7;
@@ -62,7 +60,6 @@
 }
 
 :root[data-theme="dark"] {
-  --wallpaper-cover: #1e2020b8;
   --text: #e3e6f2;
   --secondary: #b3beec;
   --muted: #a4afd7;
@@ -1206,9 +1203,7 @@ body {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background:
-    linear-gradient(var(--wallpaper-cover), var(--wallpaper-cover)),
-    var(--custom-background) center / cover no-repeat;
+  background: var(--custom-background) center / cover no-repeat;
 }
 
 .image-drop-zone {

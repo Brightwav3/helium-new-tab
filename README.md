@@ -26,7 +26,7 @@ Disable or remove Helium New Tab on the extensions page to restore your previous
 - Optional clock and date, with 12-hour or 24-hour time and optional seconds.
 - 37 interface languages, with localized dates and times.
 - Instrument Sans Variable as the default interface font, bundled locally. System and custom installed fonts remain available for the interface, clock, date, and search field.
-- A custom background image in Customize, saved only on this device, with a theme-aware layer that keeps text readable. Choose a JPG, PNG, WebP, GIF, BMP, or AVIF file up to 20 MB; Reset restores the Helium background.
+- A custom background image in Customize, saved only on this device, displayed in its original colors without a tint. Choose a JPG, PNG, WebP, GIF, BMP, or AVIF file up to 20 MB; Reset restores the Helium background.
 - Search placeholder alignment can be centered or left-aligned in Customize. Typed queries always align left.
 - Search by image: use the Lens button in the search field or drop one image file onto the page. The image is sent directly to Google Lens when you choose or drop it. Invalid or undecodable files are rejected locally.
 - Search through the browser's default provider or navigate directly to a website.
