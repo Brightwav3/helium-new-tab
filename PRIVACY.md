@@ -7,10 +7,15 @@ browser syncs extension data through your browser account, those preferences and
 follow you to your other devices; otherwise they stay on this device. Each saved copy also notes when it changed and a random identifier for the device
 that changed it, so a device can tell its own older changes from newer ones. The identifier is
 created on the device and identifies nothing else. It has no account, analytics, advertising,
-telemetry, or backend. It does not collect or transmit browsing history.
+telemetry, or backend. It does not transmit browsing history. The optional most-visited shortcuts read only the browser-provided top-sites list after you grant permission.
 
-The extension makes no external network requests. Translations, images, scripts,
-and styles ship in the extension; custom fonts must already be installed on your device.
+The extension makes no automatic external network requests. Translations, the Instrument Sans Variable font, artwork, scripts, and styles ship in the extension; other custom fonts must already be installed on your device.
+
+Custom background images are stored as files in the extension's local IndexedDB database. They are not uploaded or synced. Removing a background deletes that stored image.
+
+**Shortcuts → Most visited** requests the optional `topSites` permission and reads the browser's ranked list of most-visited pages. It does not read the full history or count individual visits. The list stays in memory and is not synced or sent to a server. This mode is a per-device preference; your manual shortcuts are kept separately. Removing the permission returns to manual shortcuts.
+
+When you choose an image with the Lens button or drop an image onto the page, the extension submits that image directly to Google Lens for visual search. The hint and drop target identify Google as the recipient. It does not keep a copy. Google handles the image under [its privacy policy](https://policies.google.com/privacy). Selecting an image in the custom-background settings only stores it locally and does not submit it to Lens.
 
 **Customize → Show service icons** is off by default. Turning it on asks for the optional
 `favicon` permission, which lets the extension read site icons your browser has already

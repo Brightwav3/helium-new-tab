@@ -1,6 +1,6 @@
 # Helium New Tab
 
-A minimal, unofficial new-tab extension inspired by [Helium's brand kit](https://helium.computer/brand) and [Prism](https://prism.helium.computer/). Plain HTML, CSS, and JavaScript, built with Bun. No runtime dependencies.
+A minimal, unofficial new-tab extension inspired by [Helium's brand kit](https://helium.computer/brand) and [Prism](https://prism.helium.computer/). The interface follows [Helium's website](https://helium.computer): locally bundled Instrument Sans Variable and compact translucent search controls. The default canvas keeps the original flat light and dark backgrounds. Plain HTML, CSS, and JavaScript, built with Bun. No runtime dependencies.
 
 ## Install in Helium
 
@@ -25,7 +25,10 @@ Disable or remove Helium New Tab on the extensions page to restore your previous
 - Automatic light and dark appearance, with manual overrides and a Blended or Helium dark background.
 - Optional clock and date, with 12-hour or 24-hour time and optional seconds.
 - 37 interface languages, with localized dates and times.
-- Custom installed fonts for the interface, clock, date, and search field.
+- Instrument Sans Variable as the default interface font, bundled locally. System and custom installed fonts remain available for the interface, clock, date, and search field.
+- A custom background image in Customize, saved only on this device, displayed in its original colors without a tint. Choose a JPG, PNG, WebP, GIF, BMP, or AVIF file up to 20 MB; Reset restores the Helium background.
+- Search placeholder alignment can be centered or left-aligned in Customize. Typed queries always align left.
+- Search by image: use the Lens button in the search field or drop one image file onto the page. The image is sent directly to Google Lens when you choose or drop it. Invalid or undecodable files are rejected locally.
 - Search through the browser's default provider or navigate directly to a website.
   Bare names open only with a known top-level domain, so `example.com` opens a site while
   `next.js` searches. Local names such as `localhost:3000`, `printer.local`, and IP
@@ -45,7 +48,7 @@ Disable or remove Helium New Tab on the extensions page to restore your previous
 - Keyboard-accessible settings that adapt to small windows and respect reduced motion.
 - Preferences and pinned sites saved in the extension's browser profile and synced across
   devices when the browser syncs extension data. Service icons stay a per-device choice.
-- No analytics, remote fonts, or external network requests.
+- No analytics, remote fonts, or automatic external network requests. Image search sends your selected image to Google Lens only on your action.
   Required permissions are `search` and `storage`, neither of which shows an install warning.
   Service icons ask for the optional `favicon` permission when you turn them on.
 
@@ -143,6 +146,8 @@ The localhost preview uses DuckDuckGo and cannot verify native browser integrati
 **Customize → Language** defaults to **Automatic**, which follows your supported browser
 languages and falls back to English. A manual choice updates the interface, tab title,
 and date and time formatting, and is saved on this device.
+
+New customization and image-search messages are translated into Czech and Slovak; these messages currently use English in other languages. Existing messages retain their translations.
 
 Available languages: Albanian, Bosnian, Bulgarian, Catalan, Croatian, Czech, Danish,
 Dutch, English, Estonian, Finnish, French, German, Greek, Hungarian, Icelandic, Irish,

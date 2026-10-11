@@ -1,41 +1,58 @@
+@font-face {
+  font-family: "Instrument Sans Variable";
+  src: url("assets/instrument-sans-variable.ttf") format("truetype");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --text: #292b2b;
-  --secondary: #555858;
-  --muted: #666969;
-  --accent: #3d4fc4;
-  --surface: #fff;
-  --panel: #f3f3f3;
-  --search-bg: #ebebeb;
-  --search-focus-bg: #fff;
-  --search-focus-ring: #4157d2;
-  --toggle-thumb: #fff;
+  --text: #0d1c64;
+  --secondary: #475a7f;
+  --muted: #646f9a;
+  --accent: #3450d1;
+  --surface: #fbfcff;
+  --panel: #f4f7ff;
+  --search-bg: #4953610d;
+  --search-text: #292d35;
+  --search-secondary: #555b66;
+  --search-border: #49536126;
+  --search-hover: #dadde3;
+  --search-focus-bg: #49536117;
+  --search-focus-ring: #7b89b1;
+  --toggle-thumb: #fbfcff;
   /* Off switches keep at least 3:1 contrast against the panel and the tinted rows. */
-  --toggle-off: #767979;
-  --tint: #e6e7e7;
-  --border: #d8dada;
+  --toggle-off: #737f9e;
+  --tint: #e6eafb;
+  --border: #ced6ef;
   --error: #b3261e;
   /* Flip favicons cached in the other theme's color; see markIconTone. */
   --light-icon-filter: invert(1) hue-rotate(180deg);
   --dark-icon-filter: none;
-  font-family: var(--interface-font, system-ui, sans-serif);
+  font-family: var(--interface-font, "Instrument Sans Variable", system-ui, sans-serif);
+  -webkit-font-smoothing: antialiased;
   font-synthesis: none;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --text: #e3e5e5;
-    --secondary: #c3c6c6;
-    --muted: #acb0b0;
-    --accent: #bdc4ff;
-    --surface: #353737;
-    --panel: #242626;
-    --search-bg: #353737;
-    --search-focus-bg: #3b3c3c;
-    --search-focus-ring: #7a95f8;
-    --toggle-thumb: #1e2020;
-    --toggle-off: #8a8e8e;
-    --tint: #303232;
-    --border: #454848;
+    --text: #e3e6f2;
+    --secondary: #b3beec;
+    --muted: #a4afd7;
+    --accent: #b3beec;
+    --surface: #222a50;
+    --panel: #151932;
+    --search-bg: #cdd1d21a;
+    --search-text: #e4e6e8;
+    --search-secondary: #bdc1c6;
+    --search-border: #cdd1d226;
+    --search-hover: #424547;
+    --search-focus-bg: #cdd1d226;
+    --search-focus-ring: #8795b7;
+    --toggle-thumb: #151932;
+    --toggle-off: #8390be;
+    --tint: #232c51;
+    --border: #394569;
     --error: #ffb4ab;
     --light-icon-filter: none;
     --dark-icon-filter: invert(1) hue-rotate(180deg);
@@ -43,19 +60,23 @@
 }
 
 :root[data-theme="dark"] {
-  --text: #e3e5e5;
-  --secondary: #c3c6c6;
-  --muted: #acb0b0;
-  --accent: #bdc4ff;
-  --surface: #353737;
-  --panel: #242626;
-  --search-bg: #353737;
-  --search-focus-bg: #3b3c3c;
-  --search-focus-ring: #7a95f8;
-  --toggle-thumb: #1e2020;
-  --toggle-off: #8a8e8e;
-  --tint: #303232;
-  --border: #454848;
+  --text: #e3e6f2;
+  --secondary: #b3beec;
+  --muted: #a4afd7;
+  --accent: #b3beec;
+  --surface: #222a50;
+  --panel: #151932;
+  --search-bg: #cdd1d21a;
+  --search-text: #e4e6e8;
+  --search-secondary: #bdc1c6;
+  --search-border: #cdd1d226;
+  --search-hover: #424547;
+  --search-focus-bg: #cdd1d226;
+  --search-focus-ring: #8795b7;
+  --toggle-thumb: #151932;
+  --toggle-off: #8390be;
+  --tint: #232c51;
+  --border: #394569;
   --error: #ffb4ab;
   --light-icon-filter: none;
   --dark-icon-filter: invert(1) hue-rotate(180deg);
@@ -66,6 +87,7 @@
 }
 
 body {
+  position: relative;
   margin: 0;
   background: var(--bg);
   color: var(--text);
@@ -128,38 +150,46 @@ a {
 main {
   display: grid;
   justify-items: center;
-  align-items: start;
-  padding: clamp(48px, 25svh, 300px) 24px 40px;
+  align-items: safe center;
+  min-height: 100svh;
+  padding: 96px 24px;
   min-width: 0;
 }
 
 .start {
-  width: min(100%, 640px);
+  width: min(100%, 680px);
   text-align: center;
 }
 
 .helium-logo {
-  width: 56px;
-  height: 56px;
-  margin: 0 auto 28px;
+  position: absolute;
+  top: 36px;
+  left: 44px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--text);
+  font-size: 27px;
+  font-weight: 550;
+  letter-spacing: -0.045em;
 }
 
 .helium-logo svg {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 30px;
+  height: 30px;
 }
 
 .clock-block {
-  margin-top: 36px;
+  margin: 0 0 34px;
 }
 
 h1 {
   margin: 0;
-  font-size: clamp(34px, 8vw, 48px);
+  font-size: clamp(64px, 10vw, 104px);
   font-family: var(--clock-font, system-ui, sans-serif);
-  font-weight: 400;
-  letter-spacing: -0.035em;
+  font-weight: 500;
+  letter-spacing: -0.055em;
   line-height: 1.15;
   font-variant-numeric: tabular-nums;
   min-height: 1.15em;
@@ -175,8 +205,8 @@ h1 {
 #date {
   margin: 7px 0 0;
   font-family: var(--date-font, system-ui, sans-serif);
-  font-size: 15px;
-  letter-spacing: 0.01em;
+  font-size: 17px;
+  letter-spacing: -0.015em;
   color: var(--secondary);
   min-height: 1.3em;
 }
@@ -185,16 +215,16 @@ h1 {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 5px 5px 5px 14px;
-  border: 2px solid transparent;
-  /* Scale Helium’s 8px radius on a 28px omnibox to our 54px search field. */
-  border-radius: 16px;
+  padding: 5px 8px 5px 14px;
+  border: 1px solid var(--search-border);
+  border-radius: 10px;
   background: var(--search-bg);
-  height: 54px;
+  height: 48px;
 }
 
 #search-form:focus-within {
   border-color: var(--search-focus-ring);
+  box-shadow: 0 0 0 1px var(--search-focus-ring);
   background: var(--search-focus-bg);
 }
 
@@ -203,7 +233,7 @@ h1 {
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  color: var(--secondary);
+  color: var(--search-secondary);
   width: 20px;
   height: 20px;
 }
@@ -292,7 +322,8 @@ h1 {
 #search {
   width: 100%;
   min-width: 0;
-  color: var(--text);
+  color: var(--search-text);
+  text-align: start;
   background: transparent;
   border: 0;
   outline: none;
@@ -304,22 +335,57 @@ h1 {
 }
 
 #search::placeholder {
-  color: var(--secondary);
+  color: var(--search-secondary);
+}
+
+/* Balance the two trailing controls while the field is empty. Typed text aligns normally. */
+:root[data-center-search-placeholder="true"] #search:placeholder-shown {
+  text-align: center;
+  padding-inline-start: 54px;
+}
+
+#search-form:has(.search-service:not([hidden])) #search:placeholder-shown {
+  text-align: start;
+  padding-inline-start: 10px;
 }
 
 .search-submit {
   background: transparent;
-  color: var(--secondary);
-  border-radius: 9px;
-  height: 40px;
-  width: 40px;
+  color: var(--search-secondary);
+  border-radius: 6px;
+  height: 32px;
+  width: 32px;
   display: grid;
   place-items: center;
   flex-shrink: 0;
 }
 
 .search-submit:hover {
-  background: var(--border);
+  background: var(--search-hover);
+  color: var(--search-text);
+}
+
+.image-search-button {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--search-secondary);
+}
+
+.image-search-button:hover {
+  background: var(--search-hover);
+  color: var(--search-text);
+}
+
+.image-search-hint {
+  margin: 16px 0 0;
+  color: var(--secondary);
+  font-size: 12px;
+  line-height: 1.5;
 }
 
 /* A slight press confirms the click without moving anything around it. */
@@ -336,13 +402,6 @@ h1 {
    the clock is below search. Narrow windows wrap it into two. */
 .pinned-sites {
   margin-top: 36px;
-}
-
-/* The row adds about 100px, so start the page half of that higher to keep it balanced. */
-@media (min-height: 421px) {
-  main:has(.pinned-sites:not([hidden])) {
-    padding-top: clamp(48px, calc(25svh - 50px), 250px);
-  }
 }
 
 .pinned-sites ul {
@@ -422,7 +481,7 @@ h1 {
   :root:not([data-theme="light"]) .site-icon:not(.has-favicon) {
     --tile-bg: var(--tone-dark);
     --tile-text: var(--tone-dark-text);
-    --tile-hover-bg: color-mix(in srgb, var(--tone-dark), #fff 7%);
+    --tile-hover-bg: color-mix(in srgb, var(--tone-dark), #fbfcff 7%);
   }
 
   :root:not([data-theme="light"]) .site-icon.has-favicon {
@@ -433,7 +492,7 @@ h1 {
 :root[data-theme="dark"] .site-icon:not(.has-favicon) {
   --tile-bg: var(--tone-dark);
   --tile-text: var(--tone-dark-text);
-  --tile-hover-bg: color-mix(in srgb, var(--tone-dark), #fff 7%);
+  --tile-hover-bg: color-mix(in srgb, var(--tone-dark), #fbfcff 7%);
 }
 
 :root[data-theme="dark"] .site-icon.has-favicon {
@@ -463,10 +522,12 @@ h1 {
 }
 
 footer {
+  position: absolute;
+  inset: auto 0 0;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 16px 24px;
+  justify-content: flex-end;
+  padding: 20px 44px;
   gap: 12px;
   padding-bottom: max(16px, env(safe-area-inset-bottom));
   color: var(--muted);
@@ -474,42 +535,19 @@ footer {
   line-height: 20px;
 }
 
-.keyboard-hint {
-  min-width: 0;
-  overflow-wrap: anywhere;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-kbd {
-  flex-shrink: 0;
-  font-family: var(--mono-font, monospace);
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  width: 21px;
-  height: 22px;
-  line-height: 1;
-  display: grid;
-  place-items: center;
-  background: var(--bg);
-}
-
 .settings-button {
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  gap: 9px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
   background: transparent;
   color: var(--muted);
-  padding: 9px 11px;
-  border-radius: 9px;
-  font-size: inherit;
-  line-height: inherit;
+  border-radius: 8px;
 }
 
 .settings-button:hover {
-  background: var(--tint);
   color: var(--text);
 }
 
@@ -589,7 +627,7 @@ dialog[open]::backdrop {
 
 h2 {
   margin: 0;
-  font-size: 16px;
+  font-size: 22px;
   letter-spacing: -0.035em;
   font-weight: 550;
 }
@@ -811,11 +849,17 @@ input[type="checkbox"]:checked:before {
 
 @media (max-height: 420px) {
   main {
-    padding-block: 24px;
+    padding-block: 24px 88px;
   }
 
   .helium-logo {
-    margin-bottom: 18px;
+    position: static;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: 56px;
   }
 
   .clock-block,
@@ -825,11 +869,6 @@ input[type="checkbox"]:checked:before {
 }
 
 @media (pointer: coarse) {
-  /* Touch screens usually have no keyboard for the "/" shortcut; keep the footer layout. */
-  .keyboard-hint {
-    visibility: hidden;
-  }
-
   .settings-button,
   .close-button,
   .icon-button {
@@ -1151,4 +1190,123 @@ input[type="checkbox"]:checked:before {
 
 .pinned-site-form .section-help {
   margin: 0;
+}
+
+/* Only custom images add a background layer; the default canvas remains flat. */
+body {
+  isolation: isolate;
+}
+
+:root[data-custom-background="true"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--custom-background) center / cover no-repeat;
+}
+
+.image-drop-zone {
+  position: fixed;
+  inset: 12px;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  border: 2px dashed var(--accent);
+  border-radius: 24px;
+  background: var(--panel);
+  pointer-events: none;
+  box-shadow: 0 0 0 12px var(--bg);
+}
+
+.image-drop-content {
+  max-width: 90%;
+  text-align: center;
+}
+
+.image-drop-content svg {
+  width: 56px;
+  height: 56px;
+  color: var(--accent);
+}
+
+.image-drop-content p {
+  margin: 20px 0 10px;
+  font-size: clamp(24px, 5vw, 36px);
+  letter-spacing: -0.035em;
+}
+
+.image-drop-content span {
+  color: var(--secondary);
+  line-height: 1.5;
+}
+
+.background-settings {
+  padding: 20px 0;
+  border-top: 1px solid var(--border);
+}
+
+.background-heading {
+  margin: 0 0 6px;
+  font-weight: 550;
+}
+
+.background-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.background-actions button {
+  padding: 10px 15px;
+  background: var(--tint);
+  border-radius: 24px;
+}
+
+.background-actions button:first-child {
+  background: #3450d1;
+  color: #f4f7ff;
+}
+
+.background-name {
+  margin: 10px 0 0;
+  color: var(--secondary);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.background-name:empty {
+  display: none;
+}
+
+@media (max-width: 520px) {
+  .helium-logo {
+    top: 24px;
+    left: 24px;
+    font-size: 23px;
+  }
+
+  footer {
+    padding-inline: 20px;
+  }
+
+  #search-form {
+    gap: 6px;
+    padding-inline-start: 14px;
+    height: 44px;
+  }
+
+  :root[data-center-search-placeholder="true"] #search:placeholder-shown {
+    padding-inline-start: 50px;
+    font-size: 14px;
+  }
+
+  .image-search-button {
+    width: 32px;
+  }
+
+  .search-service {
+    max-width: 25%;
+    font-size: 14px;
+  }
 }

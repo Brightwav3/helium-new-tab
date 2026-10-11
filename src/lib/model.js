@@ -5,6 +5,7 @@ export const PREFERENCES_KEY = "helium-tab";
 export const PINNED_SITES_KEY = "helium-tab-sites";
 
 export const fonts = {
+  instrument: '"Instrument Sans Variable", system-ui, sans-serif',
   system: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
   mono: 'ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace',
 };
@@ -19,8 +20,10 @@ export const defaults = {
   showDate: true,
   showServiceIcons: false,
   typeToSearch: true,
+  centerSearchPlaceholder: true,
   showPinnedSites: false,
-  uiFont: "system",
+  shortcutSource: "manual",
+  uiFont: "instrument",
   monoFont: "system",
   uiCustomFont: "",
   monoCustomFont: "",
@@ -38,9 +41,10 @@ const componentFonts = ["inherit", "ui", "mono", "custom"];
 // Every accepted value of the preferences that pick one of a fixed set of choices.
 const ALLOWED = {
   background: ["blend", "helium"],
+  shortcutSource: ["manual", "frequent"],
   theme: ["system", "light", "dark"],
   timeFormat: ["auto", "12h", "24h"],
-  uiFont: fontSources,
+  uiFont: ["instrument", ...fontSources],
   monoFont: fontSources,
   clockFont: componentFonts,
   dateFont: componentFonts,
@@ -84,6 +88,7 @@ export function readPreferences(value) {
     "showDate",
     "showServiceIcons",
     "typeToSearch",
+    "centerSearchPlaceholder",
     "showPinnedSites",
   ]) {
     if (typeof value[key] === "boolean") {
@@ -196,7 +201,11 @@ export function fontFamily(customName = "", fallback = fonts.system) {
 }
 
 export function resolvedFonts(preferences) {
-  const ui = preferences.uiFont === "custom" ? fontFamily(preferences.uiCustomFont) : fonts.system;
+  const uiFonts = { instrument: fonts.instrument, system: fonts.system };
+  const ui =
+    preferences.uiFont === "custom"
+      ? fontFamily(preferences.uiCustomFont)
+      : (uiFonts[preferences.uiFont] ?? fonts.instrument);
   const mono =
     preferences.monoFont === "custom"
       ? fontFamily(preferences.monoCustomFont, fonts.mono)

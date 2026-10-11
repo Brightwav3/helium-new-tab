@@ -4,7 +4,10 @@ import { resolveLanguage, translate } from "./i18n/languages.js";
 
 const preferences = loadPreferences();
 // With pinned sites off, startup reads only the flag; app.js loads the kept list later.
-const pinned = preferences.showPinnedSites ? loadPinnedSites() : undefined;
+const pinned =
+  preferences.showPinnedSites && preferences.shortcutSource === "manual"
+    ? loadPinnedSites()
+    : undefined;
 
 // The build embeds only the page's own short messages from each translation catalog.
 const selection = resolveLanguage(preferences.language, navigator.languages);

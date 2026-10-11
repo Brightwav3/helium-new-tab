@@ -26,7 +26,7 @@ test("validates display and font preferences, ignoring legacy shortcuts", () => 
   expect(value.clockFont).toBe("mono");
   expect(value.dateFont).toBe("inherit");
   expect(value.dateCustomFont).toBe("");
-  expect(value.uiFont).toBe("system");
+  expect(value.uiFont).toBe("instrument");
 
   expect(value).not.toHaveProperty("shortcuts");
   expect(readPreferences({ clockFont: "__proto__" }).clockFont).toBe("inherit");
@@ -92,4 +92,11 @@ test("keeps a valid dark background style", () => {
   expect(readPreferences(null).background).toBe("blend");
   expect(readPreferences({ background: "helium" }).background).toBe("helium");
   expect(readPreferences({ background: "separate" }).background).toBe("blend");
+});
+
+test("bundled Instrument Sans is the default and preserves explicit font choices", () => {
+  expect(resolvedFonts(readPreferences(null)).interface).toBe(fonts.instrument);
+  expect(resolvedFonts(readPreferences({ uiFont: "system" })).interface).toBe(fonts.system);
+  expect(readPreferences({ shortcutSource: "frequent" }).shortcutSource).toBe("frequent");
+  expect(readPreferences({ shortcutSource: "invalid" }).shortcutSource).toBe("manual");
 });

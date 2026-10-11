@@ -336,11 +336,11 @@ test("a saved language is on the page from its first paint", async ({ page }) =>
     window.paintedText = [];
 
     function record() {
-      const hint = document.querySelector(".keyboard-hint [data-i18n]");
+      const settings = document.getElementById("open-settings");
       const search = document.getElementById("search");
 
-      if (hint && search) {
-        window.paintedText.push(`${hint.textContent} | ${search.placeholder}`);
+      if (settings && search) {
+        window.paintedText.push(`${settings.getAttribute("aria-label")} | ${search.placeholder}`);
       }
 
       if (window.paintedText.length < 5) {
@@ -357,7 +357,7 @@ test("a saved language is on the page from its first paint", async ({ page }) =>
 
   const frames = await page.evaluate(() => window.paintedText);
 
-  expect(new Set(frames)).toEqual(new Set(["zum Suchen | Suchen oder URL eingeben"]));
+  expect(new Set(frames)).toEqual(new Set(["Anpassen | Suchen oder URL eingeben"]));
   await expect(page.locator("html")).toHaveAttribute("lang", "de");
 });
 
@@ -682,7 +682,7 @@ test("pinned sites are on the page from its first paint without shifting it", as
   await expect(pinnedLinks(page).first()).not.toHaveAttribute("title");
 });
 
-test("pinned sites sit below the clock and date, last on the page", async ({ page }) => {
+test("clock and date lead search, with pinned sites last", async ({ page }) => {
   await savePinnedSites(page, [{ url: "https://github.com/", title: "github.com" }]);
   await page.reload();
 
@@ -690,8 +690,8 @@ test("pinned sites sit below the clock and date, last on the page", async ({ pag
   const date = await page.locator("#date").boundingBox();
   const row = await page.locator("#pinned-sites").boundingBox();
 
-  expect(date.y).toBeGreaterThan(search.y + search.height);
-  expect(row.y).toBeGreaterThan(date.y + date.height);
+  expect(search.y).toBeGreaterThan(date.y + date.height);
+  expect(row.y).toBeGreaterThan(search.y + search.height);
 });
 
 test("adds, renames, reorders, and removes pinned sites in Customize", async ({ page }) => {
