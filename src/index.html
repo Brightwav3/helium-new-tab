@@ -7,8 +7,8 @@
     <style>
       :root {
         color-scheme: light;
-        --dark-bg: #1e2020;
-        --bg: #fff;
+        --dark-bg: #151932;
+        --bg: #f4f7ff;
         background: var(--bg);
       }
 
@@ -25,7 +25,7 @@
       }
 
       :root[data-background="helium"] {
-        --dark-bg: #3b3c3c;
+        --dark-bg: #0e1123;
       }
     </style>
     <title data-i18n="newTab">New Tab</title>
@@ -47,6 +47,13 @@
     />
 
     <script src="bootstrap.js"></script>
+    <link
+      rel="preload"
+      href="assets/instrument-sans-variable.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
     <link rel="stylesheet" href="style.css" />
     <script type="module" src="assets/app.js"></script>
   </head>
@@ -61,6 +68,15 @@
               fill="currentColor"
             />
           </svg>
+          <span aria-hidden="true">Helium</span>
+        </div>
+
+        <div class="clock-block" id="clock-block">
+          <h1>
+            <span class="visually-hidden" data-i18n="currentTime">Current time</span>
+            <time id="clock" dir="auto"></time>
+          </h1>
+          <p id="date" dir="auto"></p>
         </div>
 
         <form id="search-form" role="search" autocomplete="off">
@@ -83,6 +99,28 @@
             autocapitalize="off"
             enterkeyhint="search"
           />
+          <button
+            id="image-search-button"
+            class="image-search-button"
+            type="button"
+            aria-label="Search image with Google Lens"
+            data-i18n-label="imageSearch"
+            aria-describedby="image-search-hint"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+              aria-hidden="true"
+            >
+              <path
+                d="M8 4H5a1 1 0 0 0-1 1v3m12-4h3a1 1 0 0 1 1 1v3M4 16v3a1 1 0 0 0 1 1h3m8 0h3a1 1 0 0 0 1-1v-3"
+              />
+              <circle cx="12" cy="12" r="4" />
+              <circle cx="18" cy="18" r="1" fill="currentColor" stroke="none" />
+            </svg>
+          </button>
           <button class="search-submit" type="submit" aria-label="Search" data-i18n-label="search">
             <svg
               viewBox="0 0 24 24"
@@ -96,13 +134,23 @@
           </button>
         </form>
 
-        <div class="clock-block" id="clock-block">
-          <h1>
-            <span class="visually-hidden" data-i18n="currentTime">Current time</span>
-            <time id="clock" dir="auto"></time>
-          </h1>
-          <p id="date" dir="auto"></p>
-        </div>
+        <p id="image-search-hint" class="image-search-hint" data-i18n="imageSearchHint">
+          Drop an image to search with Google Lens
+        </p>
+        <form
+          id="image-upload-form"
+          action="https://lens.google.com/v3/upload"
+          method="post"
+          enctype="multipart/form-data"
+          hidden
+        >
+          <input
+            id="image-file"
+            type="file"
+            name="encoded_image"
+            accept="image/jpeg,image/png,image/webp,image/gif,image/bmp,image/avif"
+          />
+        </form>
 
         <!-- bootstrap.js fills this before the first paint when sites are pinned. -->
         <nav
@@ -140,6 +188,24 @@
         <span data-i18n="customize">Customize</span>
       </button>
     </footer>
+
+    <div id="image-drop-zone" class="image-drop-zone" hidden aria-hidden="true">
+      <div class="image-drop-content">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.4"
+          aria-hidden="true"
+        >
+          <rect x="3" y="3" width="18" height="18" rx="4" />
+          <circle cx="9" cy="9" r="2" />
+          <path d="m3 17 5-5 4 4 4-6 5 7" />
+        </svg>
+        <p data-i18n="imageSearchDrop">Drop your image here</p>
+        <span data-i18n="imageSearchPrivacy">Your image will be sent to Google Lens.</span>
+      </div>
+    </div>
 
     <p id="status" class="toast" role="status"></p>
   </body>

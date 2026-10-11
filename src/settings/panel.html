@@ -52,6 +52,28 @@
     </span>
   </div>
 
+  <div class="background-settings">
+    <p class="background-heading" data-i18n="customBackground">Custom background</p>
+    <p class="section-help" data-i18n="backgroundHelp">
+      Choose an image. Stored only on this device.
+    </p>
+    <div class="background-actions">
+      <button id="choose-background" type="button" data-i18n="chooseBackground">
+        Choose image
+      </button>
+      <button id="remove-background" type="button" data-i18n="removeBackground" hidden>
+        Reset
+      </button>
+    </div>
+    <input
+      id="background-file"
+      type="file"
+      accept="image/jpeg,image/png,image/webp,image/gif,image/bmp,image/avif"
+      hidden
+    />
+    <p id="background-name" class="background-name" role="status"></p>
+  </div>
+
   <div class="setting">
     <label for="show-clock" data-i18n="showClock">Show clock</label>
     <input id="show-clock" type="checkbox" role="switch" />
@@ -122,6 +144,22 @@
 
     <p id="show-pinned-sites-help" class="setting-help" data-i18n="showPinnedSitesHelp">
       Up to 8 shortcuts below the clock and date. Hiding them keeps your list.
+    </p>
+
+    <div class="setting">
+      <label for="shortcut-source" data-i18n="shortcutSource">Shortcuts</label>
+      <span class="select-control">
+        <select id="shortcut-source" aria-describedby="frequent-sites-help">
+          <option value="manual" data-i18n="manualSites">My sites</option>
+          <option value="frequent" data-i18n="frequentSites">Most visited</option>
+        </select>
+      </span>
+    </div>
+    <p id="frequent-sites-help" class="setting-help" data-i18n="frequentSitesHelp">
+      Most visited uses your browser's top sites, with your permission. Your own list is kept.
+    </p>
+    <p id="frequent-sites-preview" class="section-help" data-i18n="frequentSitesPreview" hidden>
+      Most visited is available when installed as an extension.
     </p>
 
     <!-- Disabled as a whole while pinned sites are off; see dependencies in panel.js. -->
@@ -230,6 +268,7 @@
       <label for="ui-font" data-i18n="ui">UI</label>
       <span class="select-control">
         <select id="ui-font">
+          <option value="instrument">Instrument Sans Variable</option>
           <option value="system" data-i18n="systemFont">System</option>
           <option value="custom" data-i18n="custom">Custom…</option>
         </select>

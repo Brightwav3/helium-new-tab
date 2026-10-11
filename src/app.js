@@ -1,4 +1,7 @@
 import { createTranslator, languages, resolveLanguage } from "./i18n/index.js";
+import { readFrequentSites, requestFrequentSites } from "./lib/frequent-sites.js";
+import { createCustomBackground } from "./lib/custom-background.js";
+import { createImageSearch } from "./lib/image-search.js";
 import { createClock } from "./lib/clock.js";
 import {
   PINNED_SITES_KEY,
@@ -43,6 +46,10 @@ const searchForm = createSearchForm({
   getPreferences: () => preferences,
   onError: () => notify(translator.text("searchError")),
 });
+createImageSearch({ onError: (key) => notify(translator.text(key)) });
+
+const customBackground = createCustomBackground({ onError: (key) => notify(translator.text(key)) });
+
 const device = deviceId();
 // Synced items whose latest write sync rejected, so their changes are only on this device.
 const unsyncedItems = new Set();
@@ -137,6 +144,15 @@ $("open-settings").addEventListener("click", async () => {
         translator,
         languages,
         onChange(key, value) {
+          if (key === "shortcutSource" && value === "frequent") {
+            return requestFrequentSites().then((granted) => {
+              if (granted) {
+                updatePreference("shortcutSource", "frequent");
+                updatePreference("showPinnedSites", true);
+              }
+            });
+          }
+
           if (key === "showServiceIcons" && value) {
             return requestServiceIcons().then((granted) => updatePreference(key, granted));
           }
@@ -145,6 +161,7 @@ $("open-settings").addEventListener("click", async () => {
         },
         onPinnedSitesChange: updatePinnedSites,
       });
+      customBackground.bind($("settings"));
     }
 
     settings.open();
@@ -169,7 +186,11 @@ function updatePreference(key, value) {
     applyPreferences();
   }
 
-  if (key === "showServiceIcons" || key === "showPinnedSites") {
+  if (key === "shortcutSource") {
+    void refreshFrequentSites();
+  }
+
+  if (key === "showServiceIcons" || key === "showPinnedSites" || key === "shortcutSource") {
     renderSites();
   }
 
@@ -210,13 +231,15 @@ function applyExternal(value) {
 
   const rowChanged =
     next.showServiceIcons !== preferences.showServiceIcons ||
-    next.showPinnedSites !== preferences.showPinnedSites;
+    next.showPinnedSites !== preferences.showPinnedSites ||
+    next.shortcutSource !== preferences.shortcutSource;
 
   preferences = next;
   void updateLanguage(true);
   settings?.refresh();
 
   if (rowChanged) {
+    void refreshFrequentSites();
     renderSites();
   }
 
@@ -262,12 +285,53 @@ function showsSiteFavicons() {
   return preferences.showServiceIcons && serviceIconsSupported();
 }
 
+let frequentSites = [];
+let frequentRevision = 0;
+
+async function refreshFrequentSites() {
+  const request = ++frequentRevision;
+
+  if (preferences.shortcutSource !== "frequent") {
+    frequentSites = [];
+    renderSites();
+
+    return;
+  }
+
+  try {
+    const sites = await readFrequentSites();
+
+    if (request === frequentRevision) {
+      frequentSites = sites;
+      renderSites();
+    }
+  } catch {
+    if (request === frequentRevision) {
+      updatePreference("shortcutSource", "manual");
+      settings?.refresh();
+      notify(translator.text("frequentSitesUnavailable"));
+    }
+  }
+}
+
+if (typeof chrome !== "undefined") {
+  chrome.permissions?.onRemoved?.addListener(({ permissions: removed }) => {
+    if (removed.includes("topSites") && preferences.shortcutSource === "frequent") {
+      updatePreference("shortcutSource", "manual");
+      settings?.refresh();
+    }
+  });
+}
+
+void refreshFrequentSites();
+
 function renderSites() {
   const row = $("pinned-sites");
   const links = [...row.querySelectorAll("a")];
   const focused = links.indexOf(document.activeElement);
 
-  renderPinnedSites(row, preferences.showPinnedSites ? pinned.sites : []);
+  const sites = preferences.shortcutSource === "frequent" ? frequentSites : pinned.sites;
+  renderPinnedSites(row, preferences.showPinnedSites ? sites : []);
 
   // Keep keyboard focus in the row when another tab or device changes it.
   if (focused !== -1) {

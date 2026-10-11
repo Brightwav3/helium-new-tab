@@ -1,3 +1,4 @@
+import { frequentSitesSupported } from "../lib/frequent-sites.js";
 import markup from "./panel.html" with { type: "text" };
 import { fontFamily, fonts, PINNED_SITES_LIMIT, siteHost } from "../lib/model.js";
 import {
@@ -49,6 +50,11 @@ export function createSettings({
     find("service-icons-setting").hidden = true;
   }
 
+  if (!frequentSitesSupported()) {
+    find("shortcut-source").querySelector('[value="frequent"]').disabled = true;
+    find("frequent-sites-preview").hidden = false;
+  }
+
   const byName = Object.entries(languages).sort(([, a], [, b]) => a.localeCompare(b, "en"));
 
   for (const [code, name] of byName) {
@@ -65,6 +71,7 @@ export function createSettings({
     ["show-date", "showDate"],
     ["type-to-search", "typeToSearch"],
     ["show-pinned-sites", "showPinnedSites"],
+    ["shortcut-source", "shortcutSource"],
     ["show-service-icons", "showServiceIcons"],
     ...["ui", "mono", "clock", "date", "search"].map((key) => [`${key}-font`, `${key}Font`]),
   ];
@@ -73,7 +80,8 @@ export function createSettings({
   const usesDarkBackground = (preferences) => preferences.theme !== "light";
   const showsClock = (preferences) => preferences.showClock;
   const showsDate = (preferences) => preferences.showDate;
-  const showsPinnedSites = (preferences) => preferences.showPinnedSites;
+  const showsPinnedSites = (preferences) =>
+    preferences.showPinnedSites && preferences.shortcutSource === "manual";
 
   const dependencies = [
     ["background", usesDarkBackground],
@@ -345,6 +353,7 @@ export function createSettings({
       previewFont(key);
     }
 
+    find("pinned-site-controls").hidden = preferences.shortcutSource === "frequent";
     renderSiteList();
     showSyncStatus();
   }

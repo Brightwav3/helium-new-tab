@@ -102,11 +102,11 @@ test("loads without errors or remote requests", async ({ page }) => {
 });
 
 for (const [name, colorScheme, preferences, background] of [
-  ["light device", "light", {}, "rgb(255, 255, 255)"],
-  ["dark device", "dark", {}, "rgb(30, 32, 32)"],
-  ["forced dark", "light", { theme: "dark" }, "rgb(30, 32, 32)"],
-  ["forced light", "dark", { theme: "light" }, "rgb(255, 255, 255)"],
-  ["Helium dark", "dark", { background: "helium" }, "rgb(59, 60, 60)"],
+  ["light device", "light", {}, "rgb(244, 247, 255)"],
+  ["dark device", "dark", {}, "rgb(21, 25, 50)"],
+  ["forced dark", "light", { theme: "dark" }, "rgb(21, 25, 50)"],
+  ["forced light", "dark", { theme: "light" }, "rgb(244, 247, 255)"],
+  ["Helium dark", "dark", { background: "helium" }, "rgb(14, 17, 35)"],
 ]) {
   test(`paints the ${name} background`, async ({ page }) => {
     await page.emulateMedia({ colorScheme });
@@ -682,7 +682,7 @@ test("pinned sites are on the page from its first paint without shifting it", as
   await expect(pinnedLinks(page).first()).not.toHaveAttribute("title");
 });
 
-test("pinned sites sit below the clock and date, last on the page", async ({ page }) => {
+test("clock and date lead search, with pinned sites last", async ({ page }) => {
   await savePinnedSites(page, [{ url: "https://github.com/", title: "github.com" }]);
   await page.reload();
 
@@ -690,8 +690,8 @@ test("pinned sites sit below the clock and date, last on the page", async ({ pag
   const date = await page.locator("#date").boundingBox();
   const row = await page.locator("#pinned-sites").boundingBox();
 
-  expect(date.y).toBeGreaterThan(search.y + search.height);
-  expect(row.y).toBeGreaterThan(date.y + date.height);
+  expect(search.y).toBeGreaterThan(date.y + date.height);
+  expect(row.y).toBeGreaterThan(search.y + search.height);
 });
 
 test("adds, renames, reorders, and removes pinned sites in Customize", async ({ page }) => {

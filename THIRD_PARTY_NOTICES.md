@@ -50,3 +50,11 @@ included in the matching source release at
 Helium names and branding belong to their respective owners. This is an unofficial
 project and is not affiliated with or endorsed by Helium or imput. No trademark
 permission is granted by this project's license.
+
+## Instrument Sans Variable
+
+`src/assets/instrument-sans-variable.ttf` is the upright Instrument Sans variable font
+(weights 400–700, width axis 75–100), by the Instrument Sans Project Authors.
+Downloaded from the [Google Fonts source](https://github.com/google/fonts/tree/main/ofl/instrumentsans)
+on 11 October 2026. It is bundled without modification under the SIL Open Font License 1.1,
+included in [licenses/Instrument-Sans-OFL.txt](licenses/Instrument-Sans-OFL.txt).

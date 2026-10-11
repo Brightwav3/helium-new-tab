@@ -63,5 +63,22 @@
   "siteNameFor": "Název pro {site}",
   "moveSiteUp": "Posunout {site} nahoru",
   "moveSiteDown": "Posunout {site} dolů",
-  "removeSite": "Odebrat {site}"
+  "removeSite": "Odebrat {site}",
+  "imageSearch": "Hledat obrázkem přes Google Lens",
+  "imageSearchHint": "Přetáhněte obrázek pro hledání přes Google Lens",
+  "imageSearchDrop": "Pusťte obrázek sem",
+  "imageSearchPrivacy": "Obrázek bude odeslán do Google Lens.",
+  "imageSearchInvalid": "Vyberte jeden obrázek JPG, PNG, WebP, GIF, BMP nebo AVIF do 20 MB.",
+  "imageSearchError": "Obrázek se nepodařilo otevřít. Vyberte jiný soubor.",
+  "customBackground": "Vlastní pozadí",
+  "backgroundHelp": "Vyberte obrázek do 20 MB. Uloží se pouze na tomto zařízení.",
+  "chooseBackground": "Vybrat obrázek",
+  "removeBackground": "Obnovit výchozí",
+  "backgroundError": "Pozadí se nepodařilo uložit. Zkuste menší obrázek nebo zkontrolujte volné místo.",
+  "shortcutSource": "Zkratky",
+  "manualSites": "Vlastní stránky",
+  "frequentSites": "Nejnavštěvovanější",
+  "frequentSitesHelp": "Nejnavštěvovanější stránky získáváme z prohlížeče s vaším povolením. Vlastní seznam zůstane uložený.",
+  "frequentSitesPreview": "Nejnavštěvovanější stránky jsou dostupné po instalaci rozšíření.",
+  "frequentSitesUnavailable": "Nejnavštěvovanější stránky nejsou dostupné. Zobrazujeme vaše vlastní zkratky."
 }
